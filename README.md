@@ -1,2 +1,2 @@
-todo-angular
+todoList-angular
 ============
