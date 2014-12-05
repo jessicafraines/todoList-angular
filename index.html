@@ -9,12 +9,14 @@
   <body>
     <div class="container" ng-controller="TodoController as todoCtrl">
       <h1>My task list</h1>
-      <form>
-        <label>name</label><input type="text" ng-model="todoCtrl.newTask.name">
-        <label>description</label><input type="text" ng-model="todoCtrl.newTask.desc">
+      <form name="myForm" ng-submit="myForm.$valid && todoCtrl.addTask()" novalidate>
+        <label>name</label><input type="text" ng-model="todoCtrl.newTask.name" required>
+        <label>description</label><input type="text" ng-model="todoCtrl.newTask.desc" required>
         <label>due date</label><input type="date" ng-model="todoCtrl.newTask.due">
-        <label>priority</label><input type="text" ng-model="todoCtrl.newTask.priority">
-        <button ng-click="todoCtrl.addTask()">add task</button>
+        <label>priority</label><select ng-model="todoCtrl.newTask.priority">
+        <option value="{{val}}" ng-repeat="(val, text) in todoCtrl.priorityOptions">
+        {{text}}
+        <input type="submit" value="add task" ng-show="myForm.$valid">
       </form>
       <table>
         <thead>
@@ -29,7 +31,7 @@
           <tr ng-repeat="task in todoCtrl.tasks">
             <td>{{task.name}}</td>
             <td>{{task.desc}}</td>
-            <td>{{task.due}}</td>
+            <td>{{task.due | date: "shortDate"}}</td>
             <td>{{task.priority}}</td>
             <td><button ng-click="todoCtrl.deleteTask(task)">delete</button></td>
           </tr>
