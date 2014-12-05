@@ -40,8 +40,8 @@
           vm.tasks.splice(index, 1);
         };
 
-        vm.newTask = _freshTask();
 
+        vm.newTask = _freshTask();
         function _freshTask(){
           return {
             priority: 'medium'
