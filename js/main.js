@@ -9,19 +9,22 @@
           name: 'Clean house',
           desc: 'Vacuum and dust',
           due: 'Sunday',
-          priority: 'high'
+          priority: 'high',
+          image: 'http://i.imgur.com/lyeiJoRb.jpg'
         },
         {
           name: 'Do laundry',
           desc: 'Wash diapers and clothes',
           due: 'Sunday',
-          priority: 'high'
+          priority: 'high',
+          image: 'http://i.imgur.com/lyeiJoRb.jpg'
         },
         {
           name: 'Return presents',
           desc: 'Surf and Ski shop',
           due: 'Saturday',
-          priority: 'high'
+          priority: 'high',
+          image: 'http://i.imgur.com/lyeiJoRb.jpg'
         }
       ];
       vm.priorityOptions = 
@@ -40,8 +43,8 @@
           vm.tasks.splice(index, 1);
         };
 
-
         vm.newTask = _freshTask();
+        
         function _freshTask(){
           return {
             priority: 'medium'
