@@ -1,4 +1,4 @@
-<table>
+<table class="table table-striped">
   <thead>
     <tr>
       <th>Name</th>
@@ -8,13 +8,16 @@
     </tr>
   </thead>
   <tbody>
-    <tr ng-repeat="task in todo.tasks">
+    <tr ng-repeat="(taskId, task) in todo.tasks">
       <td><img class="todoImg" ng-src="{{task.image}}"></td>
       <td>{{task.name}}</td>
       <td>{{task.desc}}</td>
       <td>{{task.due | date: "shortDate"}}</td>
       <td>{{task.priority}}</td>
-      <td><button ng-click="todo.deleteTask(task)">delete</button></td>
+      <td>
+        <a href="/#/{{taskId}}" class="btn btn-primary">Show</a>
+        <a href="/#/{{taskId}}/edit" class="btn btn-primary">Edit</a>
+      <td><button ng-click="todo.deleteTask(taskId)">delete</button></td>
     </tr>
   </tbody>
 </table>

@@ -9,15 +9,20 @@
     <link rel="stylesheet" href="css/main.css">
   </head>
   <body>
-    <div class="container" ng-controller="TodoController as todoCtrl">
+    <div class="container">
       <h1>My task list</h1>
-      <a href="/#/new" class="btn-btn-primary">Add a Task</a>
-      <a href="/#/" class="btn-btn-primary">View Tasks</a>
+      <a href="/#/new" class="btn btn-primary">Add a Task</a>
+      <a href="/#/" class="btn btn-primary">Tasks</a>
       <div ng-view></div>
     </div>
     <script src="bower_components/jquery/dist/jquery.min.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.min.js"></script>
     <script src="bower_components/angular/angular.min.js"></script>
+    <script src="bower_components/angular-route/angular-route.min.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.min.js"></script>
+    <script src="bower_components/angular-strap/dist/angular-strap.tpl.min.js"></script>
+    <script src="js/todoFactory.js"></script>
     <script src="js/main.js"></script>
   </body>
 </html>

@@ -1,20 +1,20 @@
-<form name="myForm" ng-submit="myForm.$valid && todoCtrl.addTask()" novalidate>
-  <div class="form-group" ng-class="{'has-error': !todoCtrl.newTask.name}">
+<form name="myForm" ng-submit="myForm.$valid && todo.addTask()" novalidate>
+  <div class="form-group" ng-class="{'has-error': !todo.newTask.name}">
   <label class="control-label">name</label>
-  <input class="form-control" type="text" ng-model="todoCtrl.newTask.name" required>
+  <input class="form-control" type="text" ng-model="todo.newTask.name" required>
   </div>
-  <div class="form-group" ng-class="{'has-error': !todoCtrl.newTask.desc}">
+  <div class="form-group" ng-class="{'has-error': !todo.newTask.desc}">
   <label class="control-label">description</label>
-    <input class="form-control" type="text" ng-model="todoCtrl.newTask.desc" required>
+    <input class="form-control" type="text" ng-model="todo.newTask.desc" required>
 </div>
-  <div class="form-group" ng-class="{'has-error': !todoCtrl.newTask.due}">
+  <div class="form-group" ng-class="{'has-error': !todo.newTask.due}">
   <label class="control-label">due date</label>
-    <input class="form-control" type="date" ng-model="todoCtrl.newTask.due">
+    <input class="form-control" type="name" name="date" ng-model="todo.newTask.due" bs-datepicker>
 </div>
- <div class="form-group" ng-class="{'has-error': !todoCtrl.newTask.priority}">
+ <div class="form-group" ng-class="{'has-error': !todo.newTask.priority}">
   <label>priority</label>
-    <select ng-model="todoCtrl.newTask.priority">
-  <option value="{{val}}" ng-repeat="(val, text) in todoCtrl.priorityOptions">
+    <select ng-model="todo.newTask.priority">
+  <option value="{{val}}" ng-repeat="(val, text) in todo.priorityOptions">
   {{text}}
   <input type="submit" value="add task" ng-disabled="myForm.$invalid">
-</form>
+</form
