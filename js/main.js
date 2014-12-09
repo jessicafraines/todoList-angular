@@ -1,38 +1,28 @@
 ;(function(){
   'use strict';
 
-  angular.module("myToDoApp", []) //what are these square brackets for?
-    .controller('TodoController', function(){
+  angular.module("myToDoApp", ['ngRoute']) 
+    .config(function($routeProvider){
+      $routeProvider
+      .when('/', {
+        templateUrl: 'views/tasks.html',
+        controller: 'TodoController',
+        controllerAs: 'todo'
+      })
+      .when('/new', {
+        templateUrl: 'views/form.html',
+        controller: 'TodoController',
+        controllerAs: 'todo'
+      })
+      .when('/:id', {
+        templateUrl: 'views/task.html',
+        controller: 'TodoController',
+        controllerAs: 'todo'
+      })
+      .otherwise: ({redirectsTo: '/'});
+    })
+    .controller('TodoController', function($http){
       var vm = this;
-      vm.tasks = [
-        {
-          name: 'Clean house',
-          desc: 'Vacuum and dust',
-          due: 'Sunday',
-          priority: 'high',
-          image: 'http://i.imgur.com/lyeiJoRb.jpg'
-        },
-        {
-          name: 'Do laundry',
-          desc: 'Wash diapers and clothes',
-          due: 'Sunday',
-          priority: 'high',
-          image: 'http://i.imgur.com/lyeiJoRb.jpg'
-        },
-        {
-          name: 'Return presents',
-          desc: 'Surf and Ski shop',
-          due: 'Saturday',
-          priority: 'high',
-          image: 'http://i.imgur.com/lyeiJoRb.jpg'
-        }
-      ];
-      vm.priorityOptions = 
-      {
-        high: 'High',
-        medium: 'Medium',
-        low: 'Low'
-      };
         
         vm.addTask = function(){
           vm.tasks.push(vm.newTask);

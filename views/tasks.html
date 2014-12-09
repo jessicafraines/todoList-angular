@@ -1,0 +1,20 @@
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Due Date</th>
+      <th>Priority</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr ng-repeat="task in todo.tasks">
+      <td><img class="todoImg" ng-src="{{task.image}}"></td>
+      <td>{{task.name}}</td>
+      <td>{{task.desc}}</td>
+      <td>{{task.due | date: "shortDate"}}</td>
+      <td>{{task.priority}}</td>
+      <td><button ng-click="todo.deleteTask(task)">delete</button></td>
+    </tr>
+  </tbody>
+</table>

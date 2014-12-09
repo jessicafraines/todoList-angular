@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Clean house",
+    "desc": "Vacuum and dust",
+    "due": "Sunday",
+    "priority": "high",
+    "image": "http://i.imgur.com/lyeiJoRb.jpg"
+  },
+  {
+    "name": "Do laundry",
+    "desc": "Wash diapers and clothes",
+    "due": "Sunday",
+    "priority": "high",
+    "image": "http://i.imgur.com/lyeiJoRb.jpg"
+  },
+  {
+    "name": "Return presents",
+    "desc": "Surf and Ski shop",
+    "due": "Saturday",
+    "priority": "high",
+    "image": "http://i.imgur.com/lyeiJoRb.jpg"
+  }
+]
