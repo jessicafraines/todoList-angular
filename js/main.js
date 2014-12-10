@@ -27,71 +27,114 @@
     .otherwise({redirectTo: '/'});
   })
 
-  .controller('ShowController', function($http, $routeParams){
+    .factory('todoFactory', function($http, $location){
+
+      function getTodo(id, cb){
+        var url = 'https://nss-todoapp.firebaseio.com/' + id + '.json'
+        $http.get(url)
+        .success(function(data){
+          cb(data);
+        })
+        .error(function(err){
+          alert('Nope');
+        });
+      }
+      function editTodo(id, task){
+        var url = 'https://nss-todoapp.firebaseio.com/' + id + '.json'
+        $http.put(url, task)
+          .success(function(data){
+            $location.path('/');
+          })
+          .error(function(err){
+            alert('WTF?');
+          });
+        }
+      function getAllTodos(cb){
+        $http.get('https://nss-todoapp.firebaseio.com/.json')
+        .success(function(data){
+          cb(data);
+        })
+        .error(function(err){
+          alert('Not Working Bozo');
+        });
+      }
+      function createTodo(task, cb){  
+        $http.post('https://nss-todoapp.firebaseio.com/.json', task)
+          .success(function(data){
+            cb(data);
+            $location.path('/');
+          })
+          .error(function(err){
+            alert('Wrong Sucka');
+          });
+        }
+      function deleteTodo(id, cb) {
+        var url = 'https://nss-todoapp.firebaseio.com/' + id + '.json';
+        $http.delete(url)
+          .success(function(){
+            cb();
+          })
+        .error(function(err){
+          alert('You may never get rid of me');
+        });
+      };
+      var priorityOptions = {
+        high: 'High',
+        medium: 'Medium',
+        low: 'Low'
+      };
+
+      return{
+        getTodo: getTodo,
+        editTodo: editTodo,
+        getAllTodos: getAllTodos,
+        createTodo: createTodo,
+        deleteTodo: deleteTodo,
+        priorityOptions: priorityOptions
+      };
+    })
+
+  .controller('ShowController', function($routeParams, todoFactory){
     var vm = this;
     var id = $routeParams.id;
-    $http.get('https://nss-todoapp.firebaseio.com/' + id + '.json')
-    .success(function(data){
+    todoFactory.getTodo(id, function(data){
       vm.task = data;
-    })
-    .error(function(err){
-      alert('Nope');
     });
   })//closes show controller
 
-  .controller('TodoController', function($http, $location){
+  .controller('EditController', function($routeParams, todoFactory){
     var vm = this;
-    $http.get('https://nss-todoapp.firebaseio.com/.json')
-    .success(function(data){
+    var id = $routeParams.id;
+    todoFactory.getTodo(id, function(data){
+      vm.newTask = data;
+    });
+    vm.addTask = function(){
+      todoFactory.editTodo(id, vm.newTask);
+    };
+    vm.priorityOptions = todoFactory.priorityOptions;
+  })//closes edit controller
+
+  .controller('TodoController', function(todoFactory){
+    var vm = this;
+    
+    todoFactory.getAllTodos(function(data){
       vm.tasks = data;
-    })
-    .error(function(err){
-      alert('Not Working Bozo');
     });
 
     vm.addTask = function(){
-      $http.post('https://nss-todoapp.firebaseio.com/.json', vm.newTask)
-      .success(function(data){
+      todoFactory.createTodo(vm.newTask, function(data){
         vm.tasks[data.name] = vm.newTask;
-        vm.newTask = "";
-        $location.path('/');
-      })
-      .error(function(err){
-        alert('Wrong Sucka');
-      });
-    }
-    vm.deleteTask = function(id){
-      var url = 'https://nss-todoapp.firebaseio.com/' + id + '.json';
-      $http.delete(url)
-        .success(function(){
-          delete vm.tasks[id]
-        })
-      .error(function(err){
-        alert('You may never get rid of me');
       });
     };
+
+    vm.deleteTask = function(id){
+      todoFactory.deleteTodo(id, function(){
+        delete vm.tasks[id];
+      })
+    };
+
+    vm.priorityOptions = todoFactory.priorityOptions;
+
   })//closes todo controller
 
-  .controller('EditController', function($http, $routeParams, $location){
-    var vm = this;
-    var id = $routeParams.id;
-    var url = 'https://nss-todoapp.firebaseio.com/' + id + '.json'
-    $http.get(url)
-    .success(function(data){
-      vm.newTask = data;
-    })
-    .error(function(err){
-      alert('Try again Punk');
-    })
-
-    vm.addTask = function(){
-      $http.put(url, vm.newTask)
-      .success(function(data){
-        $location.path('/');
-      })
-      .error(function(err){
-        alert('WTF?');
-      });
-    }
-  })//closes edit controller
 }());
